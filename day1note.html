@@ -105,12 +105,55 @@ int main()
     cout&lt;&lt;dp[1][1]&lt;&lt;endl;
     return 0;
 }</code></pre>
+    <h1>刷题记录2：力扣153 旋转数组找最小值</h1>
+     <div class="tip">
+        题型：二分查找变形<br>
+        难度：中等
+    </div>
+    <h3>题目大意</h3>
+    <p>给出升序的一个数组，找出其围绕中位旋转某次后的最小值</p>
+     <h3>解题思路</h3>
+    <ul>
+        <p>题目重点：无重复，升序，找最小值，考虑普通二分，但没有固定target，就做细节处变形</p>
+        <li>原数组整体升序，且旋转后拆成两段各自升序的子数组，最小值就是两段的分界点。</li>
+        <li>二分不找固定 target，用中间位置 mid 和 右边界 r 比较：</li>
+        <li>若 nums[mid] &gt; nums[r]：最小值一定在右半区间，令 l = mid + 1</li>
+        <li>若 nums[mid] &lt; nums[r]：最小值在左半区间或mid本身，令 r = mid</li>
+        <li>循环条件 l &lt; r，结束时 l 与 r 重合，指向最小值下标</li>
+        <li>防止re：mid 用 l+(r-l)/2 防止溢出，关闭流同步加速cin/cout。</li>
+    </ul>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
 
+int main() {
+    ios::sync_with_stdio(false);//关闭同步，加速 cin/cout
+    cin.tie(nullptr);
+
+    int n;
+    cin >> n;
+    vector&lt;int&gt; nums(n);
+    for (int i = 0; i &lt;n;++i){
+        cin >> nums[i];
+}
+    int l=0, r = n-1;
+    while (l &lt; r) {
+        int mid=l+(r-l)/2; //防溢出
+        if (nums[mid] &gt; nums[r])//最小值在右
+            l = mid + 1;
+        else
+            r = mid;
+    }
+
+    cout &lt;&lt; nums[l] &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
     <h3>今日总结</h3>
     <ul>
-        <li>掌握了数字三角形基础DP思路</li>
-        <li>理解了从下往上递推更简洁，不用处理边界</li>
-        <li>熟悉了二维数组DP的写法</li>
+        <li>掌握了数字三角形基础DP,二分无target变形思路</li>
+        <li>理解了从下往上递推更简洁，不用处理边界，只与右边界比才能处理两种情况,不断收敛区间找最小</li>
+        <li>熟悉了二维数组DP的写法，回忆二分法模板与用法细节</li>
     </ul>
 
     <br>
