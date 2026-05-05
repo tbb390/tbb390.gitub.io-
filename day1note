@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学习记录</title>
+<style>
+body{max-width:800px;margin:0 auto;padding:2rem;font-family:微软雅黑,sans-serif;background:#f8f9fa;}
+.box{background:#fff;padding:2rem;border-radius:10px;}
+a{color:#007bff;text-decoration:none;}
+h2{margin:1rem 0;}
+.content{margin-top:1rem;line-height:1.8;}
+</style>
+</head>
+<body>
+<div class="box">
+    <a href="index.html">← 返回主页</a>
+    <h2>每日学习记录</h2>
+    <p>日期：2026-05-05</p>
+    <div class="content">
+        2026.5.5今日学习内容：
+        
+        （你以后直接在这里打字，写学了什么、刷题、知识点、总结都行）
+    </div>
+</div>
+</body>
+</html>
