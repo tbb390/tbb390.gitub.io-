@@ -11,11 +11,8 @@
     h3{margin-top:1.8rem;color:#333;}
     p{line-height:1.7;color:#444;}
     ul{line-height:1.8;color:#444;}
-    /* 代码块样式 */
     pre{background:#2f2f2f;color:#eee;padding:15px;border-radius:8px;overflow-x:auto;}
-    /* 提示框 */
     .tip{background:#eef6ff;padding:12px;border-left:4px solid #007bff;border-radius:6px;margin:1rem 0;}
-    /* 图片自适应 */
     img{max-width:100%;border-radius:6px;margin:10px 0;}
     a{color:#007bff;text-decoration:none;}
     a:hover{text-decoration:underline;}
@@ -35,8 +32,6 @@
     <h3>题目大意</h3>
     <p>给定一个数字三角形，从顶部出发，每一步只能向左下或右下走，求走到最底层路径上数字和的最大值。</p>
     <img src="p1216.png" alt="洛谷P1216题目截图">
-    <!-- 你可以把洛谷题目截图放到同目录，把文件名填进去就能显示 -->
-    <!-- <img src="p1216.png" alt="P1216题目截图"> -->
 
     <h3>解题思路</h3>
     <ul>
@@ -51,9 +46,8 @@
     </ul>
 
     <h3>从上到下dp代码展示</h3>
-<pre><code>
-#include <iostream>
-#include <algorithm>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
 using namespace std;
 
 const int MAXN=1005;
@@ -62,34 +56,33 @@ int dp[MAXN][MAXN];
 
 int main(){
     int r;
-    cin>>r;
-    for(int i=1;i<=r;i++){//读入每一行
-        for(int j=1;j<=i;j++){//第i行有i个数
-            cin>>a[i][j];
+    cin&gt;&gt;r;
+    for(int i=1;i&lt;=r;i++){//读入每一行
+        for(int j=1;j&lt;=i;j++){//第i行有i个数
+            cin&gt;&gt;a[i][j];
         }
     }
     dp[1][1]=a[1][1];//初始化起点
-    for(int i=2;i<=r;i++){//处理边界
+    for(int i=2;i&lt;=r;i++){//处理边界
         dp[i][1]=dp[i-1][1]+a[i][1];//每行最左的
         dp[i][i]=dp[i-1][i-1]+a[i][i];//每行最右
     }
-    for(int i=3;i<=r;i++){//开始有中间数值处理
-        for(int j=2;j<i;j++){
+    for(int i=3;i&lt;=r;i++){//开始有中间数值处理
+        for(int j=2;j&lt;i;j++){
             dp[i][j]=a[i][j]+max(dp[i-1][j-1],dp[i-1][j]);//存档+max
         }
     }
     int result =0;
-    for(int j=1;j<=r;j++){//遍历最后一行，找最大值
+    for(int j=1;j&lt;=r;j++){//遍历最后一行，找最大值
         result=max(result,dp[r][j]);
     }
-    cout<<result<<endl;
+    cout&lt;&lt;result&lt;&lt;endl;
     return 0;
-}
-</code></pre>
+}</code></pre>
+
     <h3>从下到上dp代码展示</h3>
-<pre><code>
-#include <iostream>
-#include <algorithm>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
 using namespace std;
 const int MAXN=1005;
 int a[MAXN][MAXN];
@@ -98,21 +91,21 @@ int dp[MAXN][MAXN];
 int main()
 {
     int n;
-    cin>>n;
-    for(int i=1;i<=n;i++)
-        for(int j=1;j<=i;j++)
-            cin>>a[i][j];
-    for(int j=1;j<=n;j++)//初始化最后一行
+    cin&gt;&gt;n;
+    for(int i=1;i&lt;=n;i++)
+        for(int j=1;j&lt;=i;j++)
+            cin&gt;&gt;a[i][j];
+    for(int j=1;j&lt;=n;j++)//初始化最后一行
         dp[n][j]=a[n][j];
  
-    for(int i=n-1;i>=1;i--)//从下向上，无需考虑边界问题
-        for(int j=1;j<=i;j++)
+    for(int i=n-1;i&gt;=1;i--)//从下向上，无需考虑边界问题
+        for(int j=1;j&lt;=i;j++)
             dp[i][j]=a[i][j]+max(dp[i+1][j],dp[i+1][j+1]);
     
-    cout<<dp[1][1]<<endl;
+    cout&lt;&lt;dp[1][1]&lt;&lt;endl;
     return 0;
-}
-</code></pre>
+}</code></pre>
+
     <h3>今日总结</h3>
     <ul>
         <li>掌握了数字三角形基础DP思路</li>
