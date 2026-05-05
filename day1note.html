@@ -41,16 +41,78 @@
     <h3>解题思路</h3>
     <ul>
         <li>经典入门 DP 模型</li>
-        <li>可以<strong>从上往下</strong>递推，也可以<strong>从下往上</strong>倒推</li>
+        <p>首先，这道题如果使用暴力枚举，那么假如层数很大，直接指数爆炸.
+            因此看每一步的选择，都由子问题组成，走到某个点只能来自他的上一层某两个点，会发现很多不一样的路径都会经过同一个点，
+            那么把每个点的最优值（到达每一行的最大值）存储下来，下次直接用存档，这种想法可以使用dp这种大问题拆成小问题的算法解决最值和方案数。
+            dp特征：最优子结构,无后效性,每一步的规则（状态）固定</p>
+        <li>可以从上往下递推，也可以从下往上倒推</li>
         <li>状态定义：dp[i][j] 表示走到第 i 行第 j 列的最大和</li>
         <li>每个位置只能由上方左上、上方正上转移而来</li>
     </ul>
 
-    <h3>C++ 完整代码</h3>
+    <h3>从上到下dp代码展示</h3>
 <pre><code>
+#include <iostream>
+#include <algorithm>
+using namespace std;
 
+const int MAXN=1005;
+int a[MAXN][MAXN];//存原始三角塔
+int dp[MAXN][MAXN];
+
+int main(){
+    int r;
+    cin>>r;
+    for(int i=1;i<=r;i++){//读入每一行
+        for(int j=1;j<=i;j++){//第i行有i个数
+            cin>>a[i][j];
+        }
+    }
+    dp[1][1]=a[1][1];//初始化起点
+    for(int i=2;i<=r;i++){//处理边界
+        dp[i][1]=dp[i-1][1]+a[i][1];//每行最左的
+        dp[i][i]=dp[i-1][i-1]+a[i][i];//每行最右
+    }
+    for(int i=3;i<=r;i++){//开始有中间数值处理
+        for(int j=2;j<i;j++){
+            dp[i][j]=a[i][j]+max(dp[i-1][j-1],dp[i-1][j]);//存档+max
+        }
+    }
+    int result =0;
+    for(int j=1;j<=r;j++){//遍历最后一行，找最大值
+        result=max(result,dp[r][j]);
+    }
+    cout<<result<<endl;
+    return 0;
+}
 </code></pre>
+    <h3>从下到上dp代码展示</h3>
+<pre><code>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+const int MAXN=1005;
+int a[MAXN][MAXN];
+int dp[MAXN][MAXN];
 
+int main()
+{
+    int n;
+    cin>>n;
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=i;j++)
+            cin>>a[i][j];
+    for(int j=1;j<=n;j++)//初始化最后一行
+        dp[n][j]=a[n][j];
+ 
+    for(int i=n-1;i>=1;i--)//从下向上，无需考虑边界问题
+        for(int j=1;j<=i;j++)
+            dp[i][j]=a[i][j]+max(dp[i+1][j],dp[i+1][j+1]);
+    
+    cout<<dp[1][1]<<endl;
+    return 0;
+}
+</code></pre>
     <h3>今日总结</h3>
     <ul>
         <li>掌握了数字三角形基础DP思路</li>
