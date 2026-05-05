@@ -112,15 +112,16 @@ int main()
     </div>
     <h3>题目大意</h3>
     <p>给出升序的一个数组，找出其围绕中位旋转某次后的最小值</p>
+    <img src="lc153.png" alt="力扣153题目截图">
      <h3>解题思路</h3>
     <ul>
         <p>题目重点：无重复，升序，找最小值，考虑普通二分，但没有固定target，就做细节处变形</p>
         <li>原数组整体升序，且旋转后拆成两段各自升序的子数组，最小值就是两段的分界点。</li>
-        <li>二分不找固定 target，用中间位置 mid 和 右边界 r 比较：</li>
-        <li>若 nums[mid] &gt; nums[r]：最小值一定在右半区间，令 l = mid + 1</li>
-        <li>若 nums[mid] &lt; nums[r]：最小值在左半区间或mid本身，令 r = mid</li>
-        <li>循环条件 l &lt; r，结束时 l 与 r 重合，指向最小值下标</li>
-        <li>防止re：mid 用 l+(r-l)/2 防止溢出，关闭流同步加速cin/cout。</li>
+        <li>二分不找固定 target，用中间位置 mid 和 右边界 r 比较</li>
+        <li>若 nums[mid] &gt; nums[r]：最小值一定在右半区间，令l=mid+1</li>
+        <li>若 nums[mid] &lt; nums[r]：最小值在左半区间或mid本身，令r=mid</li>
+        <li>循环条件l &lt; r，结束时l与r重合，指向最小值下标</li>
+        <li>防止re：mid用l+(r-l)/2防止溢出</li>
     </ul>
 <pre><code>#include &lt;iostream&gt;
 #include &lt;vector&gt;
@@ -154,6 +155,7 @@ int main() {
         <li>掌握了数字三角形基础DP,二分无target变形思路</li>
         <li>理解了从下往上递推更简洁，不用处理边界，只与右边界比才能处理两种情况,不断收敛区间找最小</li>
         <li>熟悉了二维数组DP的写法，回忆二分法模板与用法细节</li>
+        <li>明天计划学习dp系统课+算法题，数据库原理，单词打卡</li>
     </ul>
 
     <br>
