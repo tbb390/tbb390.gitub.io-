@@ -25,7 +25,7 @@
     <p>日期：2025-05-07</p>
 
     <div class="tip">
-        题型：<br>
+        题型：01背包<br>
         难度：中等
     </div>
 
@@ -35,11 +35,9 @@
 
     <h3>解题思路</h3>
     <ul>
-        <li></li>
-        <p> 暴力：指数级别超时，因此使用dp优化，可抽象为01背包问题，数值为物品，和为背包
+        <p>暴力：指数级别超时，因此使用dp优化，可抽象为01背包问题，数值为物品，和为背包
             重量=价值=物品数值本身。
-            因此可判断是否装满：dp[target]==target
-</p>
+            因此可判断是否装满：dp[target]==target</p>
         <li>状态转移方程：dp[j]=(dp[j],dp[j-weight[i]+value[i])</li>
         <li>初始化：dp[0]=0 防止滚动数组被初始值覆盖</li>
         <p>遍历顺序：for（）物品
@@ -48,7 +46,8 @@
     </ul>
 
     <h3>AC 代码</h3>
-<pre><code>#include &lt;bits/stdc++.h&gt;
+<pre><code>
+#include &lt;bits/stdc++.h&gt;
 using namespace std;
 
 int main() {
