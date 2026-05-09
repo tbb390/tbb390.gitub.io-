@@ -1,110 +1,176 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>专业课学习记录</title>
-<style>
-    body{max-width:800px;margin:0 auto;padding:2rem;background:#f8f9fa;font-family:微软雅黑,sans-serif;color:#333;}
-    .card{background:#fff;padding:2.5rem;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.05);}
-    
-    /* 标题样式 */
-    h1{color:#222;border-left:5px solid #007bff;padding-left:15px;font-size:24px;margin-bottom:10px;}
-    h2{color:#444;font-size:18px;margin-top:2rem;border-bottom:1px solid #eee;padding-bottom:8px;background:#fafafa;padding:10px;border-radius:6px;}
-    h3{color:#555;font-size:16px;margin-top:1.5rem;margin-bottom:5px;}
-    
-    /* 元数据 */
-    .meta{color:#888;font-size:14px;margin-bottom:20px;}
-    .meta span{margin-right:15px;}
-    
-    /* 通用文本 */
-    p{line-height:1.8;color:#444;margin-bottom:1rem;}
-    
-    /* 知识清单列表 */
-    .check-list{list-style:none;padding:0;}
-    .check-list li{padding:10px 15px;background:#f8f9fa;margin-bottom:8px;border-radius:6px;border-left:4px solid #007bff;box-shadow:0 2px 4px rgba(0,0,0,0.05);}
-    .check-list strong{color:#007bff;margin-right:5px;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>每日学习概览 · 通用模板</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* 表格样式（用于对比或单词） */
-    table{width:100%;border-collapse:collapse;margin:15px 0;font-size:14px;}
-    th, td{border:1px solid #ddd;padding:12px;text-align:left;}
-    th{background:#e9ecef;color:#333;}
-    tr:nth-child(even){background:#fafafa;}
+        body {
+            background: linear-gradient(145deg, #f0f4fa 0%, #e2e8f0 100%);
+            font-family: 'Segoe UI', '微软雅黑', 'PingFang SC', Roboto, system-ui, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1e2a3e;
+        }
 
-    /* 代码块 */
-    pre{background:#282c34;color:#abb2bf;padding:15px;border-radius:8px;overflow-x:auto;margin:15px 0;}
-    code{font-family:Consolas, Monaco, sans-serif;}
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    /* 重点提示框 */
-    .alert{background:#fff3cd;color:#856404;padding:15px;border-left:4px solid #ffc107;border-radius:6px;margin:1rem 0;}
-    
-    a{color:#007bff;text-decoration:none;}
-    a:hover{text-decoration:underline;}
-</style>
+        .card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 2rem;
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
+            padding: 2rem 2rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1f4870, #2b5c8a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            border-left: 5px solid #3b82f6;
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+            font-size: 0.85rem;
+            color: #5b6e8c;
+            border-bottom: 1px dashed #e2edf2;
+            padding-bottom: 1rem;
+        }
+
+        .meta span {
+            background: #f1f5f9;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+        }
+
+        .section {
+            margin: 1.8rem 0;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1f4870;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content-box {
+            background: #fafcff;
+            padding: 1rem 1.2rem;
+            border-radius: 1rem;
+            border: 1px solid #eef2ff;
+            line-height: 1.6;
+            color: #2d3e50;
+        }
+
+        .content-box p {
+            margin: 0;
+            min-height: 4rem;
+        }
+
+        hr {
+            margin: 1.2rem 0;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, #cbd5e1, transparent);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            color: #1e3a8a;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid #cbd5e1;
+            transition: all 0.2s ease;
+            margin-top: 1rem;
+        }
+
+        .back-link:hover {
+            background: white;
+            border-color: #3b82f6;
+            transform: translateX(-3px);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="card">
+<div class="container">
+    <div class="card">
+        <h1>📝 每日学习概览</h1>
+        <div class="meta">
+            <span>📅 日期：____年__月__日</span>
+            <span>⏱️ 时长：____小时</span>
+            <span>📚 科目/主题：__________</span>
+        </div>
 
-    <!-- 1. 头部信息 -->
-    <h1>📚 学习记录：[填写科目名称，如：操作系统]</h1>
-    <div class="meta">
-        <span>📅 日期：202X-XX-XX</span>
-        <span>⏱️ 时长：2小时</span>
-        <span>📝 进度：第X章</span>
+        <div class="section">
+            <div class="section-title">📖 今天学了什么</div>
+            <div class="content-box">
+                <p>（写一段话概括今天学习的主要内容，例如：复习了数据结构中的二叉树遍历，学习了动态规划的基本思想，或者专业课第三章前两节……）</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">💡 收获 & 理解</div>
+            <div class="content-box">
+                <p>（记下今天最深刻的几点收获、新掌握的知识点或顿悟时刻）</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🤔 疑问 / 待解决</div>
+            <div class="content-box">
+                <p>（有哪些地方还没搞懂，需要查资料或下次重点复习）</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📌 明日计划</div>
+            <div class="content-box">
+                <p>（简单规划下一步的学习内容）</p>
+            </div>
+        </div>
+
+        <hr />
+        <a href="index.html" class="back-link">← 返回学习主页</a>
     </div>
-
-    <!-- 2. 核心知识点（列表形式） -->
-    <h2>📌 核心知识点梳理</h2>
-    <p>今天主要学习了......（这里写一段话总结）</p>
-    
-    <ul class="check-list">
-        <!-- 复制下面的 li 标签来添加更多点 -->
-        <li><strong>概念一：</strong> 这里填写具体的定义或理解。比如：进程是资源分配的最小单位。</li>
-        <li><strong>概念二：</strong> 这里填写具体的定义。比如：线程是CPU调度的最小单位。</li>
-        <li><strong>概念三：</strong> 这里填写具体的定义。</li>
-    </ul>
-
-    <!-- 3. 详细内容（表格/代码/公式） -->
-    <h2>📝 详细内容与推导</h2>
-    
-    <!-- 场景A：如果是背单词或对比概念，用表格 -->
-    <h3>重点概念对比 / 单词记忆</h3>
-    <table>
-        <thead>
-            <tr>
-                <th width="30%">术语/单词</th>
-                <th width="70%">解释/例句</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>术语 A</td>
-                <td>解释内容...</td>
-            </tr>
-            <tr>
-                <td>术语 B</td>
-                <td>解释内容...</td            >
-            </tr>
-        </tbody>
-    </table>
-
-    <!-- 场景B：如果是数学或代码，用代码块 -->
-    <h3>关键代码 / 公式推导</h3>
-<pre><code>// 在这里粘贴你的核心代码片段或伪代码
-// 或者写数学公式的 LaTeX 代码
-int a = 1; 
-System.out.println("Hello World");</code></pre>
-
-    <!-- 4. 总结与反思 -->
-    <h2>💡 难点与总结</h2>
-    <div class="alert">
-        <strong>今日避坑指南：</strong><br>
-        在这里记录容易混淆的点，或者做题时踩过的坑。
-    </div>
-    <p><strong>待复习：</strong> 记录还没完全搞懂，需要明天再看的内容。</p>
-
-    <br>
-    <a href="index.html">← 返回主页</a>
 </div>
 </body>
 </html>
