@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>每日学习概览</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f0f4fa 0%, #e2e8f0 100%);
+            font-family: 'Segoe UI', '微软雅黑', 'PingFang SC', Roboto, system-ui, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1e2a3e;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 2rem;
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
+            padding: 2rem 2rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1f4870, #2b5c8a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            border-left: 5px solid #3b82f6;
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+            font-size: 0.85rem;
+            color: #5b6e8c;
+            border-bottom: 1px dashed #e2edf2;
+            padding-bottom: 1rem;
+        }
+
+        .meta span {
+            background: #f1f5f9;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+        }
+
+        .section {
+            margin: 1.8rem 0;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1f4870;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content-box {
+            background: #fafcff;
+            padding: 1rem 1.2rem;
+            border-radius: 1rem;
+            border: 1px solid #eef2ff;
+            line-height: 1.6;
+            color: #2d3e50;
+        }
+
+        .content-box p {
+            margin: 0;
+            min-height: 4rem;
+        }
+
+        hr {
+            margin: 1.2rem 0;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, #cbd5e1, transparent);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            color: #1e3a8a;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid #cbd5e1;
+            transition: all 0.2s ease;
+            margin-top: 1rem;
+        }
+
+        .back-link:hover {
+            background: white;
+            border-color: #3b82f6;
+            transform: translateX(-3px);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>📝 每日学习概览</h1>
+        <div class="meta">
+            <span>📅 日期：2026-05-09</span>
+            <span>⏱️ 时长：1.5h</span>
+            <span>📚 科目/主题：计算机网络</span>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📖第一章体系结构</div>
+            <div class="content-box">
+                <p>今天初步了解了三类计算机体系结构模型的划分</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">💡 主要收获 & 理解</div>
+            <div class="content-box">
+                <p>*分层的优缺点
+优点：各层间独立，灵活性好，结构上可以分割，易实现和维护，促进标准化操作
+缺点：降低效率，有些功能不同层重复，额外开销
+      ！osi七层体系结构：
+（1）物理层——解决使用何种信号来表示比特0和1的问题 
+（2）数据链路层——解决数据包在一个网络或一段链路上传输的问题  功能：成帧，流量控制等
+（3）网络层——解决数据包在多个网络之间传输和路由的问题 功能：路由选择，拥塞控制等
+（4）传输层——解决进程之间基于网络的通信问题  功能：可靠与不可靠传输，复用分用等
+（5）会话层——允许不同主机上的各个进程之间进行会话，传输数据 功能：建立，管理及终止进程间的会话等
+（6）表示层——使不同表示方法的数据和信息之间能互相交流  功能：数据格式转换，数据压缩和恢复，加密和解密
+（7）应用层——通过应用进程的交互来实现特定网络应用的问题任务：采用不同的应用协议来解决不同类型的应用要求
+      ps：物理层只是作为编译作用将数据编译成二进制编码进行发送，没有对报文进行pdu封装
+     ! tcp/ip
+（1）网络接口层
+（2）网际层
+（3）运输层
+（4）应用层
+      </p>
+            </div>
+        </div>
+        <a href="index.html" class="back-link">← 返回学习主页</a>
+    </div>
+</div>
+</body>
+</html>
