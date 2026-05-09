@@ -1,79 +1,310 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>学习记录 第2天</title>
-<style>
-    body{max-width:800px;margin:0 auto;padding:2rem;background:#f8f9fa;font-family:微软雅黑,sans-serif;}
-    .card{background:#fff;padding:2rem;border-radius:10px;box-shadow:0 0 8px #eee;}
-    h1{color:#222;border-left:5px solid #007bff;padding-left:12px;font-size:22px;}
-    h3{margin-top:1.8rem;color:#333;}
-    p{line-height:1.7;color:#444;}
-    ul{line-height:1.8;color:#444;}
-    pre{background:#2f2f2f;color:#eee;padding:15px;border-radius:8px;overflow-x:auto;}
-    .tip{background:#eef6ff;padding:12px;border-left:4px solid #007bff;border-radius:6px;margin:1rem 0;}
-    img{max-width:100%;border-radius:6px;margin:10px 0;}
-    a{color:#007bff;text-decoration:none;}
-    a:hover{text-decoration:underline;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>第3天 24真题</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Segoe UI', '微软雅黑', 'PingFang SC', Roboto, system-ui, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1e2a3e;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.03);
+            padding: 2rem 2rem 2.2rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .card:hover {
+            box-shadow: 0 25px 40px -14px rgba(0, 0, 0, 0.18);
+        }
+
+        .problem-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 2px solid #e9edf2;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1f4870, #2b5c8a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+            border-left: 5px solid #3b82f6;
+            padding-left: 1rem;
+        }
+
+        .tag-group {
+            display: flex;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: #eef2ff;
+            color: #1e40af;
+            padding: 0.25rem 0.85rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            box-shadow: inset 0 0 0 1px rgba(59,130,246,0.2);
+        }
+
+        .badge.difficulty {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .date {
+            font-size: 0.85rem;
+            color: #5b6e8c;
+            background: #f1f5f9;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+        }
+
+        .info-tip {
+            background: #f0f9ff;
+            border-left: 5px solid #3b82f6;
+            border-radius: 1rem;
+            padding: 1rem 1.4rem;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .info-tip p {
+            margin: 0.3rem 0;
+            color: #1e2f44;
+        }
+
+        .placeholder-text {
+            color: #7c8ba0;
+            font-style: italic;
+            background: #fafcff;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            border: 1px dashed #cbd5e1;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 1.6rem 0 0.8rem 0;
+            color: #0f2b3d;
+            letter-spacing: -0.2px;
+            display: inline-block;
+            border-bottom: 3px solid #93c5fd;
+            padding-bottom: 0.2rem;
+        }
+
+        .list-styled {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .list-styled li {
+            margin-bottom: 0.7rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .list-styled li::before {
+            content: "📌";
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-size: 0.9rem;
+        }
+
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1.2rem;
+            border-radius: 1.2rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin: 1.2rem 0;
+            box-shadow: inset 0 0 0 1px #334155;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            color: #1e3a8a;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid #cbd5e1;
+            transition: all 0.2s ease;
+            margin-top: 0.5rem;
+        }
+
+        .back-link:hover {
+            background: white;
+            border-color: #3b82f6;
+            transform: translateX(-3px);
+        }
+
+        hr {
+            margin: 1rem 0;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, #cbd5e1, transparent);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="card">
+<div class="container">
+    <div class="card">
+        <div class="problem-header">
+            <h1>📝鹅鸭杀</h1>
+            <div class="tag-group">
+                <span class="badge">题型：贪心+优先队列</span>
+                <span class="badge difficulty">难度：夯</span>
+                <span class="date">2026-05-08</span>
+            </div>
+        </div>
+        <h3>📖 题目大意</h3>
+        <p><span class="placeholder-text">有 n 个人，每个人只有在当前人数 ∈ [lᵢ, rᵢ] 时才愿意加入。你可以自由安排顺序，问最多能加入多少人，并输出任意一种顺序。</span></p>
 
-    <h1>刷题记录：</h1>
-    <p>日期：2025-05-06</p>
+      <img>
 
-    <div class="tip">
-        题型：<br>
-        难度：
-    </div>
+        <h3>❗ 解题思路</h3>
+<ul class="list-styled">
+    <li><span class="placeholder-text">核心思想：贪心 + 小根堆。按左端点排序，用小根堆维护当前已解锁的人（按右端点升序），每次取右端点最小的人安排。</span></li>
+    <li><span class="placeholder-text">步骤一：读入数据，按 l 升序排序。</span></li>
+    <li><span class="placeholder-text">步骤二：cnt=0，指针 i=0。循环：将 l≤cnt 的人入堆；堆空则结束；否则弹出堆顶，若 r≥cnt 则安排（cnt++，记录编号），否则丢弃。</span></li>
+    <li><span class="placeholder-text">细节：输出格式为两行，第一行人数换行，第二行编号空格分隔；用快读优化；可用 auto 结构化绑定。</span></li>
+</ul>
 
-    <h3>题目大意</h3>
-    <p></p>
-    <img src=".png" alt="">
+        <h3>⚙️ AC 代码（待补充）</h3>
+        <pre><code><pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
 
-    <h3>解题思路</h3>
-    <ul>
-        <li></li>
-        <p></p>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int n;
+    cin >> n;
+    int l, r;
+    vector&lt;array&lt;int, 3&gt;&gt; a;
+    for (int i = 1; i &lt;= n; i++) {
+        cin >> l >> r;
+        a.push_back({l, r, i});
+    }
+    sort(a.begin(), a.end()); // 按 l 排序
 
-    <h3>AC 代码展示</h3>
-<pre><code>
+    priority_queue&lt;array&lt;int, 2&gt;, vector&lt;array&lt;int, 2&gt;&gt;, greater&lt;array&lt;int, 2&gt;&gt;&gt; q;
+    vector&lt;int&gt; nums(n + 1, 0);
+    int next = 0, cnt = 0;
+
+    while (true) {
+        while (next &lt; n && a[next][0] &lt;= cnt) {
+            q.push({a[next][1], a[next][2]});
+            ++next;
+        }
+        if (q.empty()) break;
+        while (!q.empty()) {
+            auto [r, id] = q.top(); q.pop();
+            if (cnt > r) continue;
+            nums[id] = ++cnt;
+            break;
+        }
+    }
+
+    vector&lt;array&lt;int, 2&gt;&gt; tmp;
+    for (int i = 1; i &lt;= n; ++i) {
+        if (nums[i] != 0) tmp.push_back({nums[i], i});
+    }
+    sort(tmp.begin(), tmp.end());
+
+    cout &lt;&lt; tmp.size() &lt;&lt; '\n';
+    for (size_t i = 0; i &lt; tmp.size(); ++i) {
+        if (i) cout &lt;&lt; ' ';
+        cout &lt;&lt; tmp[i][1];
+    }
+    cout &lt;&lt; '\n';
+
+    return 0;
+}
+</code></pre>
 </code></pre>
 
-    <h1>刷题记录2：</h1>
-     <div class="tip">
-        题型：<br>
-        难度：
+        <div class="info-tip" style="background:#fefce8; border-left-color:#eab308;">
+       <p>📎 <strong>备注</strong>：本题易错点 / 心得</p>
+<ul>
+  <li><strong>选错编译器</strong>：必须选 C++17（支持结构化绑定）或 C++11+（需手动拆解）。</li>
+  <li><strong>输出格式</strong>：第一行人数，第二行编号（空格分隔），不能挤在一行。</li>
+  <li><strong>优先队列</strong>：必须是小根堆 <code>greater&lt;&gt;</code>，否则贪心错误。</li>
+  <li><strong>自增</strong>：安排时用 <code>++cnt</code>（前缀），不能用 <code>cnt++</code>。</li>
+  <li><strong>变量名统一</strong>：如 <code>next</code> 不要写成 <code>netx</code>。</li>
+  <li><strong>循环边界</strong>：<code>for i=1 to n</code> 包含 ≤n，否则漏人。</li>
+</ul>
+        </div>
+
+       <h3>📚 今日总结</h3>
+<ul class="list-styled">
+    <li><span class="placeholder-text">收获一：掌握了贪心 + 小根堆解法：按左端点排序，动态维护右端点最小的人优先安排，可最大化区间选点数。</span></li>
+    <li><span class="placeholder-text">收获二：熟悉了 C++17 结构化绑定<code>auto [r, id]</code> 的用法，以及优先队列小根堆的声明方式：<code>priority_queue&lt;Type, vector&lt;Type&gt;, greater&lt;Type&gt;&gt;</code>。</span></li>
+</ul>
+        <hr />
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <a href="index.html" class="back-link">← 返回我的学习主页</a>
+            <span style="font-size: 0.7rem; color: #6c86a3;">第3天 /span>
+        </div>
     </div>
-    <h3>题目大意</h3>
-    <p>题目描述</p>
-     <h3>解题思路</h3>
-    <ul>
-        <p></p>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
 
-<pre><code>
-
-</code></pre>
-
-    <h3>今日总结</h3>
-    <ul>
-        <li></li>
-        <li></li>
-        <li>\</li>
-    </ul>
-
-    <br>
-    <a href="index.html">← 返回我的学习主页</a>
+    <footer style="text-align: center; font-size: 0.75rem; color: #5b6e8c; padding-top: 0.5rem;">
+        🧠  每天进步一点点
+    </footer>
 </div>
 </body>
 </html>
