@@ -223,60 +223,130 @@
         <div class="problem-header">
             <h1>📝 刷题记录 · 第6天</h1>
             <div class="tag-group">
-                <span class="badge">题型：</span>
+                <span class="badge">题型：前缀和+博弈策略</span>
                 <span class="badge difficulty">难度：夯</span>
                 <span class="date">YYYY-MM-DD</span>
             </div>
         </div>
 
-        <!-- ========= 题目大意 ========= -->
         <h3>📖 题目大意</h3>
-        <p><span class="placeholder-text">在此处填写题目背景、输入输出要求、数据范围等信息。</span></p>
+        <p><span class="placeholder-text">棋盘是 2 行 n 列的矩阵，每格有一个分数 a[i][j]。游戏规则：
+Mandy 从左上角 (0,0) 开始，brz 从右下角 (1,n-1) 开始。
+一开始，两人各自获取自己位置上的分数，然后该格分数消失。
+Mandy 先手，每次可向上下左右移动（不能出界、不能移动到分数为 0 的格子），或者选择不动。
+移动到的格子，获得该格分数，分数消失。
+轮到对方，直到双方都无法移动游戏结束。
+谁得分高谁赢，如果得分相同则平局。</span></p>
 
-        <!-- 可选：图片区域（如题目配图或笔记截图） -->
          <div style="max-width: 100%;">
-    <img src="goose.png" style="width:100%; height:auto; border-radius:8px;">
+    <img src="棋盘.png" style="width:100%; height:auto; border-radius:8px;">
+     <img src="棋盘附.png" style="width:100%; height:auto; border-radius:8px;">
 </div>
 
-        <!-- ========= 解题思路 ========= -->
-        <h3>💡 解题思路</h3>
-        <ul class="list-styled">
-            <li><span class="placeholder-text">核心算法 / 数据结构 ……</span></li>
-            <li><span class="placeholder-text">步骤一：……</span></li>
-            <li><span class="placeholder-text">步骤二：……</span></li>
-            <li><span class="placeholder-text">复杂度分析：时间 O(?) 空间 O(?)</span></li>
+       <h3>💡 解题思路</h3>
+<ul class="list-styled">
+    <li><span class="placeholder-text">核心算法：前缀和 + 遍历所有转折列的博弈策略。</span></li>
+    <li><span class="placeholder-text">步骤一：计算上行和下行的前缀和 preUp 和 preDown，快速求任意区间和。</span></li>
+    <li><span class="placeholder-text">步骤二：遍历每列 i 作为 Mandy 转折点：
+        <ul>
+            <li>Mandy 得分 = 上排 1..i + 下排 1..i-1</li>
+            <li>brZ 得分 = 上排 i+1..n + 下排 i..n</li>
+            <li>根据大小标记胜负或平局</li>
         </ul>
+    </span></li>
+    <li><span class="placeholder-text">步骤三：处理平局或交错列，选中间列判断最终胜者。</span></li>
+    <li><span class="placeholder-text">步骤四：输出结果（Mandy / brz / draw）。</span></li>
+    <li><span class="placeholder-text">复杂度分析：时间 O(T * n)，空间 O(n)（前缀和数组）。</span></li>
+</ul>
 
         <!-- ========= AC代码展示 ========= -->
         <h3>⚙️ AC 代码</h3>
-        <pre><code>// 在此处粘贴代码（支持 C++ / Python / Java 等）
-// 示例：
-#include &lt;iostream&gt;
+        <pre><code><pre><code>
+#include &lt;bits/stdc++.h&gt;
 using namespace std;
+
+using int64 = long long;
+
 int main() {
-    // 你的代码
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T;
+    cin &gt;&gt; T;
+    while (T--) {
+        int n;
+        cin &gt;&gt; n;
+        vector&lt;int64&gt; up(n + 1), down(n + 1);
+        for (int i = 1; i &lt;= n; i++) cin &gt;&gt; up[i];
+        for (int i = 1; i &lt;= n; i++) cin &gt;&gt; down[i];
+
+        vector&lt;int64&gt; preUp(n + 1, 0), preDown(n + 1, 0);
+        for (int i = 1; i &lt;= n; i++) {
+            preUp[i] = preUp[i - 1] + up[i];
+            preDown[i] = preDown[i - 1] + down[i];
+        }
+
+        bool mandyWin = false, brzWin = false, draw = false;
+
+        for (int i = 1; i &lt;= n; i++) {
+            int64 mandy = preUp[i] + preDown[i - 1];
+            int64 brz   = (preUp[n] - preUp[i]) + (preDown[n] - preDown[i - 1]);
+
+            if (mandy &gt; brz) mandyWin = true;
+            else if (mandy &lt; brz) brzWin = true;
+            else draw = true;
+        }
+
+        if (draw) cout &lt;&lt; "draw\n";
+        else if (mandyWin &amp;&amp; !brzWin) cout &lt;&lt; "Mandy\n";
+        else if (brzWin &amp;&amp; !mandyWin) cout &lt;&lt; "brz\n";
+        else {
+            int i1 = (n + 1) / 2;
+            int i2 = (n + 2) / 2;
+
+            auto calc = [&](int i) {
+                int64 mandy = preUp[i] + preDown[i - 1];
+                int64 brz   = (preUp[n] - preUp[i]) + (preDown[n] - preDown[i - 1]);
+                if (mandy &gt; brz) return 1;
+                if (mandy &lt; brz) return -1;
+                return 0;
+            };
+
+            int r1 = calc(i1), r2 = calc(i2);
+            int r = max(r1, r2);
+            if (r &gt; 0) cout &lt;&lt; "Mandy\n";
+            else if (r &lt; 0) cout &lt;&lt; "brz\n";
+            else cout &lt;&lt; "draw\n";
+        }
+    }
+
     return 0;
 }
 </code></pre>
+</code></pre>
 
-        <!-- ========= 备注 / 易错点 ========= -->
-        <div class="info-tip" style="background:#fefce8; border-left-color:#eab308;">
-            <p>📎 <strong>备注 & 易错点</strong></p>
-            <ul style="margin-left: 1.2rem; color:#5b4a1a;">
-                <li>常见坑点1：……</li>
-                <li>常见坑点2：……</li>
-                <li>优化技巧：……</li>
-            </ul>
-        </div>
+
+<!-- ========= 备注 / 易错点 ========= -->
+<div class="info-tip" style="background:#fefce8; border-left-color:#eab308;">
+    <p>📎 <strong>备注 & 易错点</strong></p>
+    <ul style="margin-left: 1.2rem; color:#5b4a1a;">
+        <li>常见坑点1：不能贪心每次走最大数字，局部最优不等于全局最优，容易被对手反制。</li>
+        <li>常见坑点2：区间和计算容易出错，前缀和下标要注意 1-based 或 0-based 的一致性。</li>
+        <li>优化技巧：使用前缀和快速计算区间和，遍历每列作为转折点判断胜负，处理交错列保证完美策略。</li>
+    </ul>
+</div>
 
         <!-- ========= 今日总结 ========= -->
         <h3>📚 今日总结</h3>
-        <ul class="list-styled">
-            <li><span class="placeholder-text">收获一：……</span></li>
-            <li><span class="placeholder-text">收获二：……</span></li>
-            <li><span class="placeholder-text">待加强 / 后续计划：……</span></li>
-        </ul>
-
+       <!-- ========= 备注 / 易错点 ========= -->
+<div class="info-tip" style="background:#fefce8; border-left-color:#eab308;">
+    <p>📎 <strong>备注 & 易错点</strong></p>
+    <ul style="margin-left: 1.2rem; color:#5b4a1a;">
+        <li>常见坑点1：不能贪心每次走最大数字，局部最优不等于全局最优，容易被对手反制。</li>
+        <li>常见坑点2：区间和计算容易出错，前缀和下标要注意 1-based 或 0-based 的一致性。</li>
+        <li>优化技巧：使用前缀和快速计算区间和，遍历每列作为转折点判断胜负，处理交错列保证完美策略。</li>
+    </ul>
+</div>
         <hr />
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
             <a href="index.html" class="back-link">← 返回我的学习主页</a>
