@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>刷题记录 · 通用框架</title>
+    <title>刷题记录</title>
     <style>
         * {
             margin: 0;
@@ -221,66 +221,46 @@
 <div class="container">
     <div class="card">
         <div class="problem-header">
-            <h1>📝 刷题记录 · 第X天</h1>
+            <h1>📝 刷题记录 · 第五天</h1>
             <div class="tag-group">
-                <span class="badge">题型：待补充</span>
-                <span class="badge difficulty">难度：待定</span>
-                <span class="date">YYYY-MM-DD</span>
+                <span class="badge">题型：签到语法</span>
+                <span class="badge difficulty">难度：拉</span>
+                <span class="date">2026-05-11</span>
             </div>
         </div>
 
         <!-- ========= 题目大意 ========= -->
         <h3>📖 题目大意</h3>
-        <p><span class="placeholder-text">在此处填写题目背景、输入输出要求、数据范围等信息。</span></p>
+        <p><span class="placeholder-text">把字符串中的字母全部替换成i，最小次数</span></p>
 
         <!-- 可选：图片区域（如题目配图或笔记截图） -->
          <div style="max-width: 100%;">
-    <img src="goose.png" style="width:100%; height:auto; border-radius:8px;">
+    <img src="update.png" style="width:100%; height:auto; border-radius:8px;">
 </div>
 
         <!-- ========= 解题思路 ========= -->
-        <h3>💡 解题思路</h3>
-        <ul class="list-styled">
-            <li><span class="placeholder-text">核心算法 / 数据结构 ……</span></li>
-            <li><span class="placeholder-text">步骤一：……</span></li>
-            <li><span class="placeholder-text">步骤二：……</span></li>
-            <li><span class="placeholder-text">复杂度分析：时间 O(?) 空间 O(?)</span></li>
-        </ul>
-
+<h3>💡 解题思路</h3><ul class="list-styled"><li><span class="placeholder-text">核心算法 / 数据结构：计数 + 去重（用字符串 used 记录已出现的非 'i' 字母）</span></li><li><span class="placeholder-text">步骤一：遍历字符串 s 的每个字符 c。如果 c 是 'i'，直接跳过（目标字母无需操作）。</span></li><li><span class="placeholder-text">步骤二：如果 c 不是 'i'，检查 used 中是否已有 c。若没有，则将 c 加入 used 并将答案 ans 加 1（代表这种新字母需要一次操作）。若已有，则跳过。</span></li><li><span class="placeholder-text">复杂度分析：时间 O(26×n) ≈ O(n)，空间 O(1)（used 最长 26 个字符）</span></li></ul>
         <!-- ========= AC代码展示 ========= -->
         <h3>⚙️ AC 代码</h3>
-        <pre><code>// 在此处粘贴代码（支持 C++ / Python / Java 等）
-// 示例：
-#include &lt;iostream&gt;
-using namespace std;
-int main() {
-    // 你的代码
-    return 0;
-}
-</code></pre>
-
-        <!-- ========= 备注 / 易错点 ========= -->
-        <div class="info-tip" style="background:#fefce8; border-left-color:#eab308;">
-            <p>📎 <strong>备注 & 易错点</strong></p>
-            <ul style="margin-left: 1.2rem; color:#5b4a1a;">
-                <li>常见坑点1：……</li>
-                <li>常见坑点2：……</li>
-                <li>优化技巧：……</li>
-            </ul>
-        </div>
+        <div style="max-width: 100%;">
+    <img src="used.png" style="width:100%; height:auto; border-radius:8px;">
+</div>
+              <div style="max-width: 100%;">
+    <img src="优化.png" style="width:100%; height:auto; border-radius:8px;">
+</div>
 
         <!-- ========= 今日总结 ========= -->
         <h3>📚 今日总结</h3>
         <ul class="list-styled">
-            <li><span class="placeholder-text">收获一：复习string用法
+            <li><span class="placeholder-text">复习string用法
 std::string s = "Hello";
-std::cout << s.length();        // 5
-std::cout << s[1];              // e
-std::cout << s.substr(1,3);     // ell
+std::cout << s.length(); 
+std::cout << s[1]; 
+std::cout << s.substr(1,3); 
 s.append(" world");
-std::cout << s;                 // Hello world</span></li>
-            <li><span class="placeholder-text">收获二：……</span></li>
-            <li><span class="placeholder-text">待加强 / 后续计划：……</span></li>
+std::cout << s;  
+</span></li>
+        
         </ul>
 
         <hr />
