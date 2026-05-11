@@ -338,15 +338,20 @@ int main() {
 
         <!-- ========= 今日总结 ========= -->
         <h3>📚 今日总结</h3>
-       <!-- ========= 备注 / 易错点 ========= -->
-<div class="info-tip" style="background:#fefce8; border-left-color:#eab308;">
-    <p>📎 <strong>备注 & 易错点</strong></p>
-    <ul style="margin-left: 1.2rem; color:#5b4a1a;">
-        <li>常见坑点1：不能贪心每次走最大数字，局部最优不等于全局最优，容易被对手反制。</li>
-        <li>常见坑点2：区间和计算容易出错，前缀和下标要注意 1-based 或 0-based 的一致性。</li>
-        <li>优化技巧：使用前缀和快速计算区间和，遍历每列作为转折点判断胜负，处理交错列保证完美策略。</li>
-    </ul>
-</div>
+  <h3>📚 今日总结</h3>
+<ul class="list-styled">
+    <li><strong>核心算法：</strong>前缀和 + 遍历所有转折列判断博弈结果。</li>
+    <li><strong>易错点：</strong>不要贪心拿最大数字，注意前缀和下标一致性，处理交错列避免平局判断错误。</li>
+    <li><strong>C++ 语法</strong>
+        <ul>
+            <li><code>vector&lt;int64&gt; arr(n+1);</code>：创建 1-based 动态数组，方便计算前缀和。</li>
+            <li><code>auto lambda = [&lt;capture&gt;](int i){…};</code>：lambda 表达式，可捕获外部变量。</li>
+            <li><code>prefix[i] = prefix[i-1] + arr[i];</code>：前缀和区间计算。</li>
+            <li><code>for(int i=1;i&lt;=n;i++)</code>：遍历列，注意循环边界。</li>
+        </ul>
+    </li>
+    <li><strong>复杂度：</strong>时间 O(T * n)，空间 O(n)。</li>
+</ul>
         <hr />
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
             <a href="index.html" class="back-link">← 返回我的学习主页</a>
