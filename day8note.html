@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>刷题记录 · 第X天</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background: linear-gradient(145deg,#eef2f7 0%,#e0e8f0 100%); font-family:'Segoe UI','微软雅黑','PingFang SC',Roboto,system-ui,sans-serif; padding:2rem 1.5rem; color:#1e2a3e; }
+        .container { max-width:1000px; margin:0 auto; }
+        .card { background: rgba(255,255,255,0.98); border-radius:2rem; box-shadow:0 20px 35px -12px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.03); padding:2rem 2rem 2.2rem; margin-bottom:2rem; border:1px solid rgba(255,255,255,0.6); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .card:hover { box-shadow:0 25px 40px -14px rgba(0,0,0,0.18); }
+        .problem-header { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; border-bottom:2px solid #e9edf2; margin-bottom:1.5rem; padding-bottom:0.75rem; }
+        h1 { font-size:1.85rem; font-weight:700; background: linear-gradient(135deg,#1f4870,#2b5c8a); background-clip:text; -webkit-background-clip:text; color:transparent; letter-spacing:-0.3px; border-left:5px solid #3b82f6; padding-left:1rem; }
+        .tag-group { display:flex; gap:0.7rem; flex-wrap:wrap; }
+        .badge { background:#eef2ff; color:#1e40af; padding:0.25rem 0.85rem; border-radius:40px; font-size:0.8rem; font-weight:500; box-shadow: inset 0 0 0 1px rgba(59,130,246,0.2); }
+        .badge.difficulty { background:#fef3c7; color:#b45309; }
+        .date { font-size:0.85rem; color:#5b6e8c; background:#f1f5f9; padding:0.2rem 0.8rem; border-radius:30px; }
+        .info-tip { background:#f0f9ff; border-left:5px solid #3b82f6; border-radius:1rem; padding:1rem 1.4rem; margin:1.5rem 0; font-size:0.95rem; box-shadow:0 1px 2px rgba(0,0,0,0.02); }
+        .info-tip p { margin:0.3rem 0; color:#1e2f44; }
+        .placeholder-text { color:#7c8ba0; font-style:italic; background:#fafcff; padding:0.5rem 1rem; border-radius:12px; border:1px dashed #cbd5e1; display:inline-block; }
+        h3 { font-size:1.4rem; font-weight:600; margin:1.6rem 0 0.8rem 0; color:#0f2b3d; letter-spacing:-0.2px; display:inline-block; border-bottom:3px solid #93c5fd; padding-bottom:0.2rem; }
+        .list-styled { list-style-type:none; padding-left:0; }
+        .list-styled li { margin-bottom:0.7rem; padding-left:1.5rem; position:relative; line-height:1.6; }
+        .list-styled li::before { content:"📌"; position:absolute; left:0; color:#3b82f6; font-size:0.9rem; }
+        pre { background:#0f172a; color:#e2e8f0; padding:1.2rem; border-radius:1.2rem; overflow-x:auto; font-family:'JetBrains Mono','Fira Code',monospace; font-size:0.85rem; line-height:1.5; margin:1.2rem 0; box-shadow: inset 0 0 0 1px #334155; white-space:pre-wrap; word-break:break-word; }
+        .back-link { display:inline-flex; align-items:center; gap:0.5rem; background:#ffffffcc; backdrop-filter:blur(4px); padding:0.6rem 1.2rem; border-radius:2rem; color:#1e3a8a; font-weight:500; text-decoration:none; border:1px solid #cbd5e1; transition:all 0.2s ease; margin-top:0.5rem; }
+        .back-link:hover { background:white; border-color:#3b82f6; transform:translateX(-3px); }
+        hr { margin:1rem 0; border:0; height:1px; background:linear-gradient(to right,#cbd5e1,transparent); }
+        @media (max-width:640px) { body{padding:1rem;} .card{padding:1.5rem;} h1{font-size:1.5rem;} }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="problem-header">
+            <h1>📝 刷题记录 · 第八天</h1>
+            <div class="tag-group">
+                <span class="badge">题型：状态搜索 / BFS</span>
+                <span class="badge difficulty">难度：高</span>
+                <span class="date">2026/05/14</span>
+            </div>
+        </div>
+
+        <!-- ========= 题目大意 ========= -->
+        <h3>📖 题目大意</h3>
+        <p>
+            Mandy和brz来到一个二维平面国家旅行，国家边界不可超出。brz可以携带一个数字移动，每次可以向上下左右移动一个单位，并根据移动方向改变手中的数字：
+            <ul>
+                <li>向左：数字减 1</li>
+                <li>向右：数字加 1</li>
+                <li>向上：数字乘 2</li>
+                <li>向下：数字除 2（向 0 取整）</li>
+            </ul>
+            brz 的目标是到达 Mandy 所在位置，并且手中数字等于 Mandy 希望的数字。移动过程中需要满足额外约束：
+            <ul>
+                <li>初始位置和 Mandy 的位置满足 x, y ∈ [0, 2×10^3]，不能离开国家边界</li>
+                <li>数字绝对值不超过 10^9</li>
+                <li>总步数不超过 5×10^3</li>
+            </ul>
+            输出 brz 的移动路径，使用字符 W/A/S/D 表示上/左/下/右移动。
+        </p>
+
+        <!-- ========= 解题思路 ========= -->
+        <h3>💡 解题思路</h3>
+        <ul class="list-styled">
+            <li>核心算法：状态搜索（BFS）</li>
+            <li>状态定义：(x, y, value) 表示 brz 在 (x, y) 坐标且手中数字为 value</li>
+            <li>每个状态可向 4 个方向扩展，同时更新数字</li>
+            <li>利用 visited 集合避免重复搜索，限制总步数 ≤ 5×10^3</li>
+            <li>输出路径时记录前驱或移动方向，最后回溯生成路径</li>
+            <li>复杂度分析：最坏 O(步数 × 4) ≈ 2×10^4</li>
+        </ul>
+
+        <!-- ========= 思路产生原因 ========= -->
+        <div class="info-tip">
+            <p>💡 <strong>思路产生的原因</strong></p>
+            <ul style="margin-left: 1.2rem; color:#1e2f44;">
+                <li>题目中移动不仅影响坐标，还会改变数字，最终目标同时依赖位置和数字，因此必须将数字纳入状态搜索。</li>
+                <li>选择 BFS 的原因：保证找到最少步数路径，同时逐层扩展所有可能状态，不会漏掉可行方案。</li>
+                <li>状态定义 (x, y, value) 的原因：同一坐标不同数字对应不同状态，需要区分以确保正确搜索。</li>
+                <li>限制总步数 ≤ 5×10^3 的原因：避免状态空间过大，防止内存和时间爆炸。</li>
+                <li>记录前驱/路径的原因：题目要求输出实际移动序列，回溯前驱可以生成完整路径。</li>
+                <li>剪枝和数字范围限制的原因：防止数字越界，避免搜索无效状态浪费资源。</li>
+            </ul>
+        </div>
+
+        <!-- ========= AC代码展示 ========= -->
+        <h3>⚙️ AC 代码</h3>
+        <pre><code>// AC代码稍后提供
+</code></pre>
+
+        <!-- ========= 备注 / 易错点 ========= -->
+        <div class="info-tip" style="background:#fefce8; border-left-color:#eab308;">
+            <p>📎 <strong>备注 & 易错点</strong></p>
+            <ul style="margin-left: 1.2rem; color:#5b4a1a;">
+                <li>状态空间较大，需要剪枝避免爆栈或超时</li>
+                <li>数字乘/除操作可能导致值越界或精度问题，要限制在 ±10^9</li>
+                <li>保证最终路径长度 ≤ 5×10^3</li>
+                <li>注意中途经过 Mandy 位置不必立即送出数字，只需最后送出即可</li>
+            </ul>
+        </div>
+
+        <!-- ========= 今日总结 ========= -->
+        <h3>📚 今日总结</h3>
+        <ul class="list-styled">
+            <li>收获一：掌握 BFS 状态搜索结合数字变化的技巧</li>
+            <li>收获二：理解如何限制状态空间和剪枝，避免超时</li>
+        </ul>
+
+        <hr />
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <a href="index.html" class="back-link">← 返回我的学习主页</a>
+            <span style="font-size: 0.7rem; color: #6c86a3;">每日一题 · 持续进步</span>
+        </div>
+    </div>
+
+    <footer style="text-align: center; font-size: 0.75rem; color: #5b6e8c; padding-top: 0.5rem;">
+        🧠 保持节奏 · 每天进步一点点
+    </footer>
+</div>
+</body>
+</html>
