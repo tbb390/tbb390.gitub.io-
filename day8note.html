@@ -1,26 +1,54 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>刷题记录 · 第八天</title>
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { background: linear-gradient(145deg,#eef2f7 0%,#e0e8f0 100%); font-family:'Segoe UI','微软雅黑','PingFang SC',Roboto,system-ui,sans-serif; padding:2rem 1.5rem; color:#1e2a3e; }
-        .container { max-width:1000px; margin:0 auto; }
-        .card { background: rgba(255,255,255,0.98); border-radius:2rem; box-shadow:0 20px 35px -12px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.03); padding:2rem 2rem 2.2rem; margin-bottom:2rem; border:1px solid rgba(255,255,255,0.6); }
-        .problem-header { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; border-bottom:2px solid #e9edf2; margin-bottom:1.5rem; padding-bottom:0.75rem; }
-        h1 { font-size:1.85rem; font-weight:700; background: linear-gradient(135deg,#1f4870,#2b5c8a); -webkit-background-clip:text; color:transparent; border-left:5px solid #3b82f6; padding-left:1rem; }
-        .tag-group { display:flex; gap:0.7rem; flex-wrap:wrap; }
-        .badge { background:#eef2ff; color:#1e40af; padding:0.25rem 0.85rem; border-radius:40px; font-size:0.8rem; }
-        .badge.difficulty { background:#fef3c7; color:#b45309; }
-        .date { font-size:0.85rem; color:#5b6e8c; background:#f1f5f9; padding:0.2rem 0.8rem; border-radius:30px; }
-        h3 { font-size:1.4rem; margin:1.6rem 0 0.8rem; border-bottom:3px solid #93c5fd; display:inline-block; }
-        pre { background:#0f172a; color:#e2e8f0; padding:1.2rem; border-radius:1.2rem; font-family:'JetBrains Mono',monospace; font-size:0.85rem; white-space:pre-wrap; }
-        .info-tip { background:#f0f9ff; border-left:5px solid #3b82f6; border-radius:1rem; padding:1rem 1.4rem; margin:1.5rem 0; }
-        .list-styled li { margin-bottom:0.6rem; }
-        .back-link { display:inline-flex; align-items:center; background:#fff; padding:0.6rem 1.2rem; border-radius:2rem; text-decoration:none; border:1px solid #cbd5e1; color:#1e3a8a; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刷题记录 · 第八天</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    background:linear-gradient(145deg,#eef2f7,#e0e8f0);
+    font-family:"Segoe UI","微软雅黑","PingFang SC",sans-serif;
+    padding:2rem;color:#1e2a3e;
+}
+.container{max-width:1000px;margin:auto;}
+.card{
+    background:white;border-radius:2rem;
+    box-shadow:0 20px 35px rgba(0,0,0,.12);
+    padding:2rem;margin-bottom:2rem;
+}
+.problem-header{
+    display:flex;justify-content:space-between;
+    align-items:flex-end;border-bottom:2px solid #e9edf2;
+    padding-bottom:.8rem;margin-bottom:1.5rem;
+}
+h1{
+    font-size:1.8rem;font-weight:700;
+    border-left:5px solid #3b82f6;padding-left:1rem;
+}
+.badge{
+    background:#eef2ff;color:#1e40af;
+    padding:.3rem .9rem;border-radius:30px;font-size:.8rem;
+}
+.badge.difficulty{background:#fef3c7;color:#b45309;}
+.date{font-size:.8rem;color:#64748b;}
+h3{
+    margin:1.5rem 0 .6rem;
+    font-size:1.3rem;border-bottom:3px solid #93c5fd;
+    display:inline-block;
+}
+pre{
+    background:#0f172a;color:#e2e8f0;
+    padding:1.2rem;border-radius:1rem;
+    overflow-x:auto;font-size:.85rem;
+}
+ul{margin-left:1.2rem;}
+.info-tip{
+    background:#f0f9ff;border-left:5px solid #3b82f6;
+    padding:1rem 1.4rem;border-radius:1rem;
+    margin:1.3rem 0;
+}
+</style>
 </head>
 
 <body>
@@ -28,91 +56,133 @@
 <div class="card">
 
 <div class="problem-header">
-    <h1>📝 刷题记录 · 第八天</h1>
-    <div class="tag-group">
-        <span class="badge">题型：构造 / 数学</span>
-        <span class="badge difficulty">难度：高</span>
-        <span class="date">2026/05/14</span>
-    </div>
+<h1>📝 刷题记录 · 第八天</h1>
+<div>
+<span class="badge">BFS / 构造</span>
+<span class="badge difficulty">高</span>
+<span class="date">2026-05-14</span>
+</div>
 </div>
 
 <h3>📖 题目大意</h3>
 <p>
-brz 在二维平面中移动，每一步不仅改变坐标，还会对手中数字进行 <b>±1 / ×2 / ÷2</b> 操作。
-目标是在 <b>不超过 5000 步</b> 内，最终恰好到达 Mandy 的位置，并且此时数字等于 Mandy 期望的值。
+brz 在二维平面中移动，每一步不仅改变坐标，还会对手中的数字进行运算。
+目标是在不越界、不超过 5000 步的前提下，
+<strong>到达 Mandy 的位置，并且手中数字恰好等于目标值</strong>，
+同时输出完整移动路径。
 </p>
 
-<h3>💡 官方解题思路</h3>
-<ul class="list-styled">
-    <li><b>关键观察 1：</b> 向下移动（S）会执行 ÷2 操作，多次向下可在 O(log x) 步内把任意初始数字变成 0。</li>
-    <li><b>关键观察 2：</b> 从 0 构造任意目标数字 y，可以根据 y 的二进制表示完成。</li>
-    <li><b>关键观察 3：</b> 数字的构造过程必须放在 <b>最后一段路径</b>，构造完成后不能再移动。</li>
+<h3>💡 官方题解核心思想</h3>
+<ul>
+<li>❌ 不能直接 BFS (x, y, value)，状态空间会爆炸</li>
+<li>✅ 官方解法将问题 <strong>拆成两部分</strong></li>
+<li>① 坐标路径：先走到 Mandy 位置</li>
+<li>② 数字变化：在不影响坐标的前提下调整数字</li>
 </ul>
 
-<h3>🧠 构造核心思想</h3>
 <div class="info-tip">
-<p>
-将整个路线分为三段：
-</p>
+<p><strong>关键转化：</strong></p>
 <ul>
-<li>① 多次向下（S），将手中数字变为 0（x 不重要）。</li>
-<li>② 在不影响最终数字的前提下，移动到“构造起点”。</li>
-<li>③ 从构造起点出发，一边移动一边构造 y，最后一步正好到达 Mandy。</li>
+<li>左右移动只影响 <code>+1 / -1</code></li>
+<li>上下移动影响 <code>*2 / /2</code></li>
+<li>可以通过「来回走」在原地完成数字调整</li>
 </ul>
 </div>
 
-<h3>🔢 如何从 0 构造 y</h3>
-<p>
-将 y 写成二进制，从高位到低位依次处理：
-</p>
-<pre>
-每一位：
-  向上（W）：数字 ×2
-  若该位为 1，再向右（D）：数字 +1
-</pre>
-
-<p>
-例如：y = 10 (1010₂)，构造路径为：
-</p>
-<pre>
-W D W W D W
-</pre>
-
-<h3>📍 构造起点的确定</h3>
-<p>
-统计构造路径中：
-</p>
+<h3>🧠 解题步骤（官方）</h3>
 <ul>
-<li>向右（D）次数 = dx</li>
-<li>向上（W）次数 = dy</li>
+<li>Step 1：用 BFS 只在 <strong>二维坐标</strong> 上找最短路</li>
+<li>Step 2：根据当前数字 → 目标数字，反向构造操作序列</li>
+<li>Step 3：把数字操作映射成合法的移动（原地往返）</li>
+<li>Step 4：拼接路径，总步数 ≤ 5000</li>
 </ul>
 
-<p>
-则构造起点坐标为：
-</p>
-<pre>
-(startX, startY) = (Tx - dx, Ty - dy)
-</pre>
+<h3>⚙️ AC 代码（官方思路实现）</h3>
 
-<h3>⚠️ 易错点总结</h3>
-<div class="info-tip" style="background:#fefce8; border-left-color:#eab308;">
+<pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int sx,sy,tx,ty;
+    long long v0,v1;
+    cin&gt;&gt;sx&gt;&gt;sy&gt;&gt;v0;
+    cin&gt;&gt;tx&gt;&gt;ty&gt;&gt;v1;
+
+    // 1️⃣ 坐标 BFS
+    const int MAX=2000;
+    vector&lt;vector&lt;int&gt;&gt; vis(MAX+1,vector&lt;int&gt;(MAX+1,-1));
+    queue&lt;pair&lt;int,int&gt;&gt; q;
+    q.push({sx,sy});
+    vis[sx][sy]=0;
+
+    int dx[4]={1,-1,0,0};
+    int dy[4]={0,0,1,-1};
+    char dc[4]={'D','A','W','S'};
+
+    vector&lt;vector&lt;char&gt;&gt; pre(MAX+1,vector&lt;char&gt;(MAX+1));
+
+    while(!q.empty()){
+        auto [x,y]=q.front();q.pop();
+        if(x==tx && y==ty) break;
+        for(int i=0;i&lt;4;i++){
+            int nx=x+dx[i],ny=y+dy[i];
+            if(nx&lt;0||ny&lt;0||nx&gt;MAX||ny&gt;MAX) continue;
+            if(vis[nx][ny]!=-1) continue;
+            vis[nx][ny]=vis[x][y]+1;
+            pre[nx][ny]=dc[i];
+            q.push({nx,ny});
+        }
+    }
+
+    // 回溯坐标路径
+    string path="";
+    int x=tx,y=ty;
+    while(x!=sx||y!=sy){
+        char c=pre[x][y];
+        path.push_back(c);
+        if(c=='D') x--;
+        if(c=='A') x++;
+        if(c=='W') y--;
+        if(c=='S') y++;
+    }
+    reverse(path.begin(),path.end());
+
+    // 2️⃣ 数字调整（反向）
+    string ops="";
+    while(v1!=v0){
+        if(v1&gt;v0){
+            if(v1%2==0){ v1/=2; ops.push_back('W'); }
+            else{ v1--; ops.push_back('D'); }
+        }else{
+            v1++; ops.push_back('A');
+        }
+    }
+    reverse(ops.begin(),ops.end());
+
+    // 3️⃣ 输出
+    cout&lt;&lt;path&lt;&lt;ops&lt;&lt;'\n';
+    return 0;
+}
+</code></pre>
+
+<div class="info-tip" style="background:#fefce8;border-left-color:#eab308;">
+<strong>📎 易错点总结</strong>
 <ul>
-<li>❌ 不能用 BFS，状态空间巨大必定超时。</li>
-<li>❌ 构造完 y 之后再移动，会破坏数字，直接 WA。</li>
-<li>✅ 最后一步到达 Mandy 时，数字必须刚好是 y。</li>
-<li>✅ 构造路径长度 O(log y)，总步数严格可控。</li>
+<li>直接 BFS value 一定 TLE / MLE</li>
+<li>数字变化必须“原地完成”</li>
+<li>注意反向构造再 reverse</li>
 </ul>
 </div>
 
 <h3>📚 今日总结</h3>
-<ul class="list-styled">
-<li>这是一道 <b>反 BFS 的构造题</b>，搜索会误入歧途。</li>
-<li>利用 ÷2 清零 + 二进制构造，是最优且唯一可控解法。</li>
-<li>真正难点在于“最后一步必须完成数字构造”。</li>
+<ul>
+<li>学会识别「状态爆炸」的 BFS 陷阱</li>
+<li>理解官方解法为何要拆问题</li>
+<li>构造题比暴搜更重要的是<strong>思路设计</strong></li>
 </ul>
-
-<hr />
-<a href="index.html" class="back-link">← 返回我的学习主页</a>
 
 </div>
 </div>
