@@ -1,1 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>刷题记录 · UNO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f7 0%, #e0e8f0 100%);
+            font-family: 'Segoe UI', '微软雅黑', 'PingFang SC', Roboto, system-ui, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1e2a3e;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0.03);
+            padding: 2rem 2rem 2.2rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .card:hover {
+            box-shadow: 0 25px 40px -14px rgba(0, 0, 0, 0.18);
+        }
+
+        .problem-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 2px solid #e9edf2;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1f4870, #2b5c8a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+            border-left: 5px solid #3b82f6;
+            padding-left: 1rem;
+        }
+
+        .tag-group {
+            display: flex;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: #eef2ff;
+            color: #1e40af;
+            padding: 0.25rem 0.85rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            box-shadow: inset 0 0 0 1px rgba(59,130,246,0.2);
+        }
+
+        .badge.difficulty {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .date {
+            font-size: 0.85rem;
+            color: #5b6e8c;
+            background: #f1f5f9;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+        }
+
+        .info-tip {
+            background: #f0f9ff;
+            border-left: 5px solid #3b82f6;
+            border-radius: 1rem;
+            padding: 1rem 1.4rem;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .info-tip p {
+            margin: 0.3rem 0;
+            color: #1e2f44;
+        }
+
+        .placeholder-text {
+            color: #7c8ba0;
+            font-style: italic;
+            background: #fafcff;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            border: 1px dashed #cbd5e1;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 1.6rem 0 0.8rem 0;
+            color: #0f2b3d;
+            letter-spacing: -0.2px;
+            display: inline-block;
+            border-bottom: 3px solid #93c5fd;
+            padding-bottom: 0.2rem;
+        }
+
+        .list-styled {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .list-styled li {
+            margin-bottom: 0.7rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .list-styled li::before {
+            content: "📌";
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-size: 0.9rem;
+        }
+
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1.2rem;
+            border-radius: 1.2rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin: 1.2rem 0;
+            box-shadow: inset 0 0 0 1px #334155;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            color: #1e3a8a;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid #cbd5e1;
+            transition: all 0.2s ease;
+            margin-top: 0.5rem;
+        }
+
+        .back-link:hover {
+            background: white;
+            border-color: #3b82f6;
+            transform: translateX(-3px);
+        }
+
+        hr {
+            margin: 1rem 0;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, #cbd5e1, transparent);
+        }
+
+        .img-placeholder {
+            background: #f1f5f9;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            color: #5b6e8c;
+            font-size: 0.85rem;
+            border: 1px dashed #cbd5e1;
+            margin: 1rem 0;
+        }
+
+        .img-placeholder img {
+            max-width: 100%;
+            border-radius: 0.75rem;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="problem-header">
+            <h1>📝 刷题记录 · 第九天 UNO</h1>
+            <div class="tag-group">
+                <span class="badge">题型：模拟 + 双向循环链表</span>
+                <span class="badge difficulty">难度：中等</span>
+                <span class="date">2025-05-15</span>
+            </div>
+        </div>
+
+        <h3>📖 题目大意</h3>
+        <p>经典UNO纸牌模拟游戏，共有n名玩家围成环形坐好，每名玩家开局拥有一定数量手牌。给定m次出牌操作序列，一共四种卡牌效果：普通牌C、禁手牌S、反转方向牌R、罚摸两张牌D。玩家手牌数量归零直接出局不再参与游戏，存在禁手机制被禁玩家本轮无法出牌。按顺序输出所有玩家最终剩余手牌数量。</p>
+
+        <div style="max-width: 100%;">
+            <img src="prtsc/uno.png" style="width:100%; height:auto; border-radius:8px;">
+        </div>
+
+        <h3>💡解题思路</h3>
+        <ul class="list-styled">
+            <li><strong>游戏规则</strong>
+                <br>玩家环形站位、出牌顺序可顺可逆、有人中途出局、存在禁手跳过出牌、每张操作牌必须依次执行不能跳过。
+            </li>
+            <li><strong>数据结构选型</strong>
+                <br>普通数组无法快速删除出局玩家，顺序会错乱；环形结构+频繁删点最优选择<strong>双向循环链表</strong>，前驱后继快速跳转，删除操作O(1)完成。
+            </li>
+            <li><strong>定义所需变量</strong>
+                <br>1.链表数组存储每个玩家前后位置；2.数组存每人手牌数；3.布尔数组标记是否被禁手；4.cur记录当前出牌人；5.dir记录出牌行进方向。
+            </li>
+            <li><strong>全局执行流程</strong>
+                <br>1.初始化链表构建环形结构，初始化手牌与禁手状态；
+                <br>2.依次遍历每一张出牌；
+                <br>3.优先判断当前玩家是否被禁，被禁则解除禁手并直接跳到下一位；
+                <br>4>当前有效玩家打出一张牌，手牌数量减一；
+                <br>5.手牌清空直接从链表中移除该玩家；
+                <br>6.根据卡牌种类执行对应特效：S禁下家、R反转方向、D罚摸+禁手、C无效果；
+                <br>7.按照当前行进方向，切换到下一名出牌玩家；
+            </li>
+            <li><strong>边界与格式处理</strong>
+                <br>遍历结束后按原始玩家序号输出手牌.
+            </li>
+            <li><strong>复杂度分析</strong>：时间复杂度 O(n+m)，空间复杂度 O(n)，可承受2e5级别大数据范围。</li>
+        </ul>
+      
+        <h3>⚙️ AC 代码</h3>
+        <pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+const int MAXN = 200010;//题目最大数据范围2e5+10
+
+struct Node {//双向链表结构体：pre前驱，nxt后继
+    int pre, nxt;
+} lst[MAXN];//开数组链表，速度比指针快
+
+int a[MAXN];//存储每个玩家的手牌数量
+bool ban[MAXN];//标记玩家是否被禁牌
+
+inline void del(int x) {//双向链表把x从表中移除操作
+    int p=lst[x].pre;
+    int n=lst[x].nxt;
+    lst[p].nxt=n;
+    lst[n].pre=p;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;//玩家数，出牌次数
+    cin&gt;&gt;n&gt;&gt;m;
+
+    for (int i = 1; i &lt;= n; ++i) {//初始化每个玩家
+        cin&gt;&gt;a[i];//读入初始手牌
+        ban[i]=false;//初始都没有被禁
+        lst[i].pre = i-1;//上家
+        lst[i].nxt = i+1;//下家
+    }
+
+    lst[1].pre = n;//构造环形
+    lst[n].nxt = 1;
+
+    string op;//存出牌的顺序内容
+    cin&gt;&gt;op;
+
+    int cur = 1;//1开始出牌
+    int dir = -1;//方向，1=顺时针，-1=逆时针
+
+    for (char c : op) {//遍历第三行
+        if (ban[cur]) {//禁止牌
+            ban[cur] = false;
+            if (dir == 1) cur = lst[cur].nxt;//顺时针下一个
+            else cur = lst[cur].pre;
+        }
+
+        a[cur]--;//打出一张，手牌-1
+        if (a[cur] == 0) {//win
+            del(cur);//从链表删除
+        }
+        //各种牌的效果触发
+        if (c == 'S') {//禁止牌
+            int next;
+            if (dir == 1) next = lst[cur].nxt;
+            else next = lst[cur].pre;
+            ban[next] = true;
+        } 
+        else if (c == 'R') {//方向牌
+            dir *= -1;
+        } 
+        else if (c == 'D') {//+2
+            int next;
+            if (dir == 1) next = lst[cur].nxt;
+            else next = lst[cur].pre;
+            a[next] += 2;
+            ban[next] = true;
+        }
+//普通牌没效果
+
+        if (dir == 1) {//下一个人
+            cur = lst[cur].nxt;//顺时针，下
+        } else {
+            cur = lst[cur].pre;//逆时针
+        }
+    }
+
+    for (int i = 1; i &lt;= n; ++i) {
+        cout &lt;&lt; a[i];
+        if (i != n) cout &lt;&lt; "\n";
+    }
+
+    return 0;
+}
+</code></pre>
+
+        <div class="info-tip" style="background:#fefce8; border-left-color:#eab308;">
+            <p>📎 <strong>备注 & 易错点</strong></p>
+            <ul style="margin-left: 1.2rem; color:#5b4a1a;">
+                <li>禁手玩家仅跳过出牌动作，本轮出牌指令依旧正常消耗，不能跳过卡牌效果</li>
+                <li>方向反转后，查找下家、判断顺位必须同步跟随dir变量变化</li>
+                <li>玩家出局删除链表节点后，后续遍历自动跳过，无需额外判断</li>
+                <li>输入输出加速语句必须加上，大数据量容易超时</li>
+                <li>输出只在非最后一行换行，解决末尾空行WA问题</li>
+            </ul>
+        </div>
+      
+        <h3>📚 今日刷题总结</h3>
+        <ul class="list-styled">
+            <li>从零掌握双向循环链表搭建、删除、环形用法</li>
+            <li>熟练完成复杂模拟题逻辑分层，理清优先级：禁手判断 > 出牌 > 出局 > 卡牌特效 > 顺位跳转</li>
+            <li>吃透UNO四种卡牌运行逻辑，分清即时生效与延后生效效果</li>
+            <li>规范OJ输出格式，解决格式错误扣分问题</li>
+            <li>后续练习更多环形模拟、多人回合制模拟类题目巩固思路</li>
+        </ul>
+      <h3>百词斩80词打卡✅️</h3>
+        <hr />
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <a href="index.html" class="back-link">← 返回我的学习主页</a>
+            <span style="font-size: 0.7rem; color: #6c86a3;">每日一题 · 持续进步</span>
+        </div>
+    </div>
+
+    <footer style="text-align: center; font-size: 0.75rem; color: #5b6e8c; padding-top: 0.5rem;">
+        🧠 保持节奏 · 每天进步一点点
+    </footer>
+</div>
+</body>
+</html>
 
