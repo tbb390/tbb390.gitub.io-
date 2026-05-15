@@ -3,49 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <title>刷题记录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
+      margin: 0;
+      padding: 40px 20px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f6f7f8;
-      padding: 40px;
+      background: linear-gradient(180deg, #f5f7fa, #ffffff);
+      color: #333;
     }
     h1 {
-      margin-bottom: 20px;
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: 600;
     }
-    .record-list {
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .day-list {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
     }
-    .record-item {
-      background: white;
-      border-radius: 8px;
-      padding: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      transition: transform .15s;
+    .day-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px 0;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      transition: transform .2s, box-shadow .2s;
     }
-    .record-item:hover {
-      transform: translateY(-2px);
+    .day-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.1);
     }
-    .record-item a {
+    .day-card a {
       text-decoration: none;
-      color: #333;
+      color: #222;
+      font-size: 16px;
       font-weight: 500;
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 13px;
+      color: #999;
     }
   </style>
 </head>
 <body>
 
 <h1>📘 刷题记录</h1>
-<div class="record-list" id="recordList"></div>
+
+<div class="container">
+  <div class="day-list" id="dayList"></div>
+</div>
+
+<footer>
+  Keep going.
+</footer>
 
 <script>
 const MAX_DAYS = 366
-const container = document.getElementById('recordList')
+const list = document.getElementById('dayList')
 
-async function exists(url) {
+async function exists(file) {
   try {
-    const res = await fetch(url, { method: 'HEAD' })
+    const res = await fetch(file, { method: 'HEAD' })
     return res.ok
   } catch {
     return false
@@ -57,9 +85,9 @@ async function loadDays() {
     const file = `day${i}note.html`
     if (await exists(file)) {
       const div = document.createElement('div')
-      div.className = 'record-item'
+      div.className = 'day-card'
       div.innerHTML = `<a href="${file}">第 ${i} 天</a>`
-      container.appendChild(div)
+      list.appendChild(div)
     }
   }
 }
