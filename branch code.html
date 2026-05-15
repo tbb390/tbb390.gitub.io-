@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>刷题记录 · 通用框架</title>
+    <title>刷题记录 · 第X天 | 题目名称</title>
     <style>
         * {
             margin: 0;
@@ -31,10 +31,6 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             margin-bottom: 2rem;
             border: 1px solid rgba(255,255,255,0.6);
-        }
-
-        .card:hover {
-            box-shadow: 0 25px 40px -14px rgba(0, 0, 0, 0.18);
         }
 
         .problem-header {
@@ -96,21 +92,6 @@
             margin: 1.5rem 0;
             font-size: 0.95rem;
             box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-        }
-
-        .info-tip p {
-            margin: 0.3rem 0;
-            color: #1e2f44;
-        }
-
-        .placeholder-text {
-            color: #7c8ba0;
-            font-style: italic;
-            background: #fafcff;
-            padding: 0.5rem 1rem;
-            border-radius: 12px;
-            border: 1px dashed #cbd5e1;
-            display: inline-block;
         }
 
         h3 {
@@ -188,32 +169,10 @@
             background: linear-gradient(to right, #cbd5e1, transparent);
         }
 
-        .img-placeholder {
-            background: #f1f5f9;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            text-align: center;
-            color: #5b6e8c;
-            font-size: 0.85rem;
-            border: 1px dashed #cbd5e1;
-            margin: 1rem 0;
-        }
-
-        .img-placeholder img {
-            max-width: 100%;
-            border-radius: 0.75rem;
-        }
-
         @media (max-width: 640px) {
-            body {
-                padding: 1rem;
-            }
-            .card {
-                padding: 1.5rem;
-            }
-            h1 {
-                font-size: 1.5rem;
-            }
+            body { padding: 1rem; }
+            .card { padding: 1.5rem; }
+            h1 { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -221,66 +180,60 @@
 <div class="container">
     <div class="card">
         <div class="problem-header">
-            <h1>📝 刷题记录 · 第X天</h1>
+            <h1>📝 刷题记录 · 第X天 【题目名称】</h1>
             <div class="tag-group">
-                <span class="badge">题型：待补充</span>
-                <span class="badge difficulty">难度：待定</span>
-                <span class="date">YYYY-MM-DD</span>
+                <span class="badge">题型：算法/数据结构</span>
+                <span class="badge difficulty">难度：简单/中等/困难</span>
+                <span class="date">2025-05-15</span>
             </div>
         </div>
 
         <!-- ========= 题目大意 ========= -->
         <h3>📖 题目大意</h3>
-        <p><span class="placeholder-text">在此处填写题目背景、输入输出要求、数据范围等信息。</span></p>
+        <p>在此处填写题目背景、输入输出要求、核心规则。</p>
 
-        <!-- 可选：图片区域（如题目配图或笔记截图） -->
-         <div style="max-width: 100%;">
-    <img src="goose.png" style="width:100%; height:auto; border-radius:8px;">
-</div>
-
-        <!-- ========= 解题思路 ========= -->
-        <h3>💡 解题思路</h3>
+        <!-- ========= 解题思路（通用万能版，直接套用） ========= -->
+        <h3>💡 从零推导解题思路</h3>
         <ul class="list-styled">
-            <li><span class="placeholder-text">核心算法 / 数据结构 ……</span></li>
-            <li><span class="placeholder-text">步骤一：……</span></li>
-            <li><span class="placeholder-text">步骤二：……</span></li>
-            <li><span class="placeholder-text">复杂度分析：时间 O(?) 空间 O(?)</span></li>
+            <li><strong>第一步：分析题目核心需求</strong><br>明确题目要做什么，输入输出是什么，有哪些限制条件。</li>
+            <li><strong>第二步：选择最优数据结构/算法</strong><br>根据操作类型（增删改查/跳转/环形/模拟）选择最合适方案。</li>
+            <li><strong>第三步：定义变量与存储结构</strong><br>数组/链表/队列/栈/哈希表 存储状态、位置、数值、标记。</li>
+            <li><strong>第四步：梳理主逻辑流程</strong><br>输入初始化 → 循环处理 → 状态更新 → 边界判断 → 输出结果。</li>
+            <li><strong>第五步：处理边界与格式</strong><br>特殊情况、输出格式、空行、空格、顺序问题。</li>
+            <li><strong>复杂度分析</strong>：时间 O(?) 空间 O(?)。</li>
         </ul>
 
-        <!-- ========= AC代码展示 ========= -->
+        <!-- ========= AC 代码 ========= -->
         <h3>⚙️ AC 代码</h3>
-        <pre><code>// 在此处粘贴代码（支持 C++ / Python / Java 等）
-// 示例：
-#include &lt;iostream&gt;
-using namespace std;
-int main() {
-    // 你的代码
-    return 0;
-}
+        <pre><code>// 在此粘贴你的 AC 代码
+// C++ / Python / Java 均可
 </code></pre>
 
-        <!-- ========= 备注 / 易错点 ========= -->
+        <!-- ========= 通用易错点 ========= -->
         <div class="info-tip" style="background:#fefce8; border-left-color:#eab308;">
             <p>📎 <strong>备注 & 易错点</strong></p>
             <ul style="margin-left: 1.2rem; color:#5b4a1a;">
-                <li>常见坑点1：……</li>
-                <li>常见坑点2：……</li>
-                <li>优化技巧：……</li>
+                <li>边界条件：0/1/空/最大数据情况</li>
+                <li>输入输出加速，避免大数据超时</li>
+                <li>格式问题：末尾无空格、无空行</li>
+                <li>变量初始化、状态重置问题</li>
+                <li>循环边界、索引越界问题</li>
             </ul>
         </div>
 
-        <!-- ========= 今日总结 ========= -->
+        <!-- ========= 每日总结 ========= -->
         <h3>📚 今日总结</h3>
         <ul class="list-styled">
-            <li><span class="placeholder-text">收获一：……</span></li>
-            <li><span class="placeholder-text">收获二：……</span></li>
-            <li><span class="placeholder-text">待加强 / 后续计划：……</span></li>
+            <li>掌握知识点：……</li>
+            <li>学会算法/数据结构：……</li>
+            <li>独立写出 AC 代码 ✅</li>
+            <li>后续加强方向：……</li>
         </ul>
 
         <hr />
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-            <a href="index.html" class="back-link">← 返回我的学习主页</a>
-            <span style="font-size: 0.7rem; color: #6c86a3;">每日一题 · 持续进步</span>
+            <a href="index.html" class="back-link">← 返回学习主页</a>
+            <span style="font-size: 0.7rem; color: #6c86a3;">每日一题 · 坚持变强</span>
         </div>
     </div>
 
