@@ -101,8 +101,6 @@ h1{
 </div>
 
 <div id="container">
-
-<!-- ====== 你的原始记录（链接完全未改） ====== -->
 <div class="record-item"><a href="day1note.html">📘 学习记录 第1天</a></div>
 <div class="record-item"><a href="day2note.html">📗 学习记录 第2天</a></div>
 <div class="record-item"><a href="day3note.html">📙 学习记录 第3天</a></div>
@@ -112,7 +110,6 @@ h1{
 <div class="record-item"><a href="day7note.html">📙 学习记录 第7天</a></div>
 <div class="record-item"><a href="day8note.html">📗 学习记录 第8天</a></div>
 <div class="record-item"><a href="day9note.html">📘 学习记录 第9天</a></div>
-
 </div>
 
 <div class="footer-note">日拱一卒 · 长期主义</div>
@@ -121,9 +118,9 @@ h1{
 <script>
 const items=[...document.querySelectorAll('.record-item')];
 const container=document.getElementById('container');
+const search=document.getElementById('search');
 const weeks={};
 
-// 按周分组
 items.forEach(item=>{
     const num=parseInt(item.innerText.match(/\d+/));
     const w=Math.ceil(num/7);
@@ -135,23 +132,24 @@ container.innerHTML='';
 Object.keys(weeks).forEach(w=>{
     const wrap=document.createElement('div');
     wrap.className='week';
-    wrap.innerHTML=
-        `<div class="week-title">第 ${w} 周</div>
-         <div class="records-list"></div>`;
+    wrap.innerHTML=`<div class="week-title">第 ${w} 周</div><div class="records-list"></div>`;
     weeks[w].forEach(i=>wrap.querySelector('.records-list').appendChild(i));
     container.appendChild(wrap);
 });
 
-// 最新高亮
 items[items.length-1].classList.add('latest');
 
-// 搜索
-search.oninput=e=>{
-    const v=e.target.value;
-    items.forEach(i=>{
-        i.style.display=i.innerText.includes(v)?'':'none';
+search.addEventListener('input',e=>{
+    const v=e.target.value.trim();
+    items.forEach(item=>{
+        const ok=item.innerText.includes(v);
+        item.style.display=ok||v===''?'':'none';
     });
-};
+    document.querySelectorAll('.week').forEach(week=>{
+        const visible=week.querySelectorAll('.record-item:not([style*="display: none"])');
+        week.style.display=visible.length>0||v===''?'':'none';
+    });
+});
 </script>
 </body>
 </html>
