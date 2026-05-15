@@ -23,7 +23,7 @@ body{
 h1{
     text-align:center;
     font-size:2rem;
-    margin-bottom:1rem;
+    margin-bottom:.8rem;
 }
 .info{
     text-align:center;
@@ -31,34 +31,26 @@ h1{
     display:inline-block;
     padding:.4rem 1.2rem;
     border-radius:40px;
-    margin-bottom:1rem;
+    margin-bottom:1.2rem;
 }
 .controls{
     display:flex;
-    gap:1rem;
-    margin:1.5rem 0;
+    margin:1.2rem 0 2rem;
 }
 .controls input{
     flex:1;
-    padding:.6rem 1rem;
+    padding:.7rem 1.2rem;
     border-radius:999px;
     border:1px solid #cbd5e1;
     outline:none;
-}
-.controls button{
-    padding:.6rem 1.2rem;
-    border:none;
-    border-radius:999px;
-    background:#1f4870;
-    color:#fff;
-    cursor:pointer;
+    font-size:.95rem;
 }
 .week{
-    margin-bottom:2rem;
+    margin-bottom:2.2rem;
 }
 .week-title{
     font-weight:700;
-    margin:1rem 0;
+    margin-bottom:.8rem;
     color:#1f4870;
 }
 .records-list{
@@ -88,12 +80,9 @@ h1{
     border:2px solid #3b82f6;
     background:#eff6ff;
 }
-.hidden{
-    display:none;
-}
 .footer-note{
     text-align:center;
-    margin-top:2rem;
+    margin-top:2.5rem;
     font-size:.75rem;
     color:#94a3b8;
 }
@@ -108,13 +97,12 @@ h1{
 </div>
 
 <div class="controls">
-    <input id="search" placeholder="搜索 第几天 / 数字">
-    <button id="toggle">展开旧记录</button>
+    <input id="search" placeholder="搜索：第几天 / 数字">
 </div>
 
 <div id="container">
 
-<!-- ====== 你的原始记录，完全没改链接 ====== -->
+<!-- ====== 你的原始记录（链接完全未改） ====== -->
 <div class="record-item"><a href="day1note.html">📘 学习记录 第1天</a></div>
 <div class="record-item"><a href="day2note.html">📗 学习记录 第2天</a></div>
 <div class="record-item"><a href="day3note.html">📙 学习记录 第3天</a></div>
@@ -135,6 +123,7 @@ const items=[...document.querySelectorAll('.record-item')];
 const container=document.getElementById('container');
 const weeks={};
 
+// 按周分组
 items.forEach(item=>{
     const num=parseInt(item.innerText.match(/\d+/));
     const w=Math.ceil(num/7);
@@ -146,28 +135,15 @@ container.innerHTML='';
 Object.keys(weeks).forEach(w=>{
     const wrap=document.createElement('div');
     wrap.className='week';
-    wrap.innerHTML=`<div class="week-title">第 ${w} 周</div><div class="records-list"></div>`;
+    wrap.innerHTML=
+        `<div class="week-title">第 ${w} 周</div>
+         <div class="records-list"></div>`;
     weeks[w].forEach(i=>wrap.querySelector('.records-list').appendChild(i));
     container.appendChild(wrap);
 });
 
-// 高亮最新
+// 最新高亮
 items[items.length-1].classList.add('latest');
-
-// 折叠旧记录
-let folded=true;
-function updateFold(){
-    document.querySelectorAll('.week').forEach((w,i)=>{
-        w.classList.toggle('hidden',folded && i<document.querySelectorAll('.week').length-2);
-    });
-}
-updateFold();
-
-document.getElementById('toggle').onclick=()=>{
-    folded=!folded;
-    updateFold();
-    toggle.innerText=folded?'展开旧记录':'收起旧记录';
-};
 
 // 搜索
 search.oninput=e=>{
