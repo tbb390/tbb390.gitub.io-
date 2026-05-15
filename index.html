@@ -3,153 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>我的学习博客 · 每日记录</title>
+<title>每日学习记录</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-    background:linear-gradient(145deg,#edf2f7,#e2e8f0);
-    font-family:'Segoe UI','微软雅黑','PingFang SC',system-ui;
-    padding:2rem;
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f1f5f9;
+    padding: 24px;
 }
-.box{
-    max-width:1000px;
-    margin:auto;
-    background:#fff;
-    border-radius:2rem;
-    padding:2rem;
-    box-shadow:0 20px 35px -12px rgba(0,0,0,.12);
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 15px 35px rgba(0,0,0,.08);
 }
-h1{
-    text-align:center;
-    font-size:2rem;
-    margin-bottom:.8rem;
+
+h1 {
+    text-align: center;
+    margin-bottom: 6px;
 }
-.info{
-    text-align:center;
-    background:#f1f5f9;
-    display:inline-block;
-    padding:.4rem 1.2rem;
-    border-radius:40px;
-    margin-bottom:1.2rem;
+
+.stats {
+    text-align: center;
+    color: #475569;
+    margin-bottom: 20px;
 }
-.controls{
-    display:flex;
-    margin:1.2rem 0 2rem;
+
+.search {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 18px;
+    font-size: 15px;
 }
-.controls input{
-    flex:1;
-    padding:.7rem 1.2rem;
-    border-radius:999px;
-    border:1px solid #cbd5e1;
-    outline:none;
-    font-size:.95rem;
+
+.records {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
 }
-.week{
-    margin-bottom:2.2rem;
+
+.record {
+    padding: 14px;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+    text-align: center;
+    font-weight: 500;
+    background: #f8fafc;
+    color: #1e293b;
+    text-decoration: none;
 }
-.week-title{
-    font-weight:700;
-    margin-bottom:.8rem;
-    color:#1f4870;
+
+.record.today {
+    background: #2563eb;
+    color: #fff;
+    border-color: #2563eb;
 }
-.records-list{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:1rem;
+
+.record.missing {
+    background: #e5e7eb;
+    color: #94a3b8;
+    pointer-events: none;
 }
-.record-item{
-    border:1px solid #e2edf2;
-    border-radius:1.2rem;
-    background:#fff;
-    transition:.2s;
+
+.heatmap {
+    display: grid;
+    grid-template-columns: repeat(53, 1fr);
+    gap: 3px;
+    margin: 30px 0;
 }
-.record-item a{
-    display:flex;
-    align-items:center;
-    gap:.6rem;
-    padding:1rem;
-    text-decoration:none;
-    color:#1e2a3e;
+
+.cell {
+    width: 100%;
+    padding-top: 100%;
+    border-radius: 3px;
+    background: #e5e7eb;
 }
-.record-item:hover{
-    transform:translateY(-4px);
-    box-shadow:0 8px 18px -8px rgba(0,0,0,.1);
+
+.cell.active {
+    background: #22c55e;
 }
-.latest{
-    border:2px solid #3b82f6;
-    background:#eff6ff;
-}
-.footer-note{
-    text-align:center;
-    margin-top:2.5rem;
-    font-size:.75rem;
-    color:#94a3b8;
+
+.cell.today {
+    outline: 2px solid #2563eb;
 }
 </style>
 </head>
 
 <body>
-<div class="box">
+<div class="container">
 <h1>📖 每日学习记录</h1>
-<div style="text-align:center">
-    <div class="info">编程 · 刷题 · 专业课 · 日常学习打卡</div>
-</div>
+<div class="stats" id="stats"></div>
 
-<div class="controls">
-    <input id="search" placeholder="搜索：第几天 / 数字">
-</div>
+<input class="search" placeholder="搜索第几天…" id="search">
 
-<div id="container">
-<div class="record-item"><a href="day1note.html">📘 学习记录 第1天</a></div>
-<div class="record-item"><a href="day2note.html">📗 学习记录 第2天</a></div>
-<div class="record-item"><a href="day3note.html">📙 学习记录 第3天</a></div>
-<div class="record-item"><a href="day4note.html">📙 学习记录 第4天</a></div>
-<div class="record-item"><a href="day5note.html">📗 学习记录 第5天</a></div>
-<div class="record-item"><a href="day6note.html">📘 学习记录 第6天</a></div>
-<div class="record-item"><a href="day7note.html">📙 学习记录 第7天</a></div>
-<div class="record-item"><a href="day8note.html">📗 学习记录 第8天</a></div>
-<div class="record-item"><a href="day9note.html">📘 学习记录 第9天</a></div>
-</div>
+<div class="heatmap" id="heatmap"></div>
 
-<div class="footer-note">日拱一卒 · 长期主义</div>
+<div class="records" id="records"></div>
 </div>
 
 <script>
-const items=[...document.querySelectorAll('.record-item')];
-const container=document.getElementById('container');
-const search=document.getElementById('search');
-const weeks={};
+const START_DATE = new Date('2025-05-05');
+const TODAY = new Date();
+TODAY.setHours(0,0,0,0);
 
-items.forEach(item=>{
-    const num=parseInt(item.innerText.match(/\d+/));
-    const w=Math.ceil(num/7);
-    if(!weeks[w])weeks[w]=[];
-    weeks[w].push(item);
-});
+const recordsEl = document.getElementById('records');
+const heatmapEl = document.getElementById('heatmap');
+const statsEl = document.getElementById('stats');
+const searchEl = document.getElementById('search');
 
-container.innerHTML='';
-Object.keys(weeks).forEach(w=>{
-    const wrap=document.createElement('div');
-    wrap.className='week';
-    wrap.innerHTML=`<div class="week-title">第 ${w} 周</div><div class="records-list"></div>`;
-    weeks[w].forEach(i=>wrap.querySelector('.records-list').appendChild(i));
-    container.appendChild(wrap);
-});
+const daysPassed = Math.floor((TODAY - START_DATE) / 86400000) + 1;
 
-items[items.length-1].classList.add('latest');
+let existingDays = new Set();
 
-search.addEventListener('input',e=>{
-    const v=e.target.value.trim();
-    items.forEach(item=>{
-        const ok=item.innerText.includes(v);
-        item.style.display=ok||v===''?'':'none';
-    });
-    document.querySelectorAll('.week').forEach(week=>{
-        const visible=week.querySelectorAll('.record-item:not([style*="display: none"])');
-        week.style.display=visible.length>0||v===''?'':'none';
-    });
-});
+function checkDay(day) {
+    return fetch(`day${day}note.html`, { method: 'HEAD' })
+        .then(r => r.ok)
+        .catch(() => false);
+}
+
+async function init() {
+    for (let i = 1; i <= daysPassed; i++) {
+        if (await checkDay(i)) existingDays.add(i);
+    }
+
+    statsEl.textContent = `你已坚持 ${existingDays.size} 天`;
+
+    for (let i = 1; i <= daysPassed; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        if (existingDays.has(i)) cell.classList.add('active');
+        if (i === daysPassed) cell.classList.add('today');
+        heatmapEl.appendChild(cell);
+    }
+
+    renderList('');
+}
+
+function renderList(keyword) {
+    recordsEl.innerHTML = '';
+    for (let i = daysPassed; i >= 1; i--) {
+        if (keyword && !(`第${i}天`.includes(keyword))) continue;
+
+        const a = document.createElement('a');
+        a.textContent = `第 ${i} 天`;
+        a.className = 'record';
+
+        if (i === daysPassed) a.classList.add('today');
+        if (!existingDays.has(i)) a.classList.add('missing');
+        if (existingDays.has(i)) a.href = `day${i}note.html`;
+
+        recordsEl.appendChild(a);
+    }
+}
+
+searchEl.addEventListener('input', e => renderList(e.target.value));
+
+init();
 </script>
 </body>
 </html>
