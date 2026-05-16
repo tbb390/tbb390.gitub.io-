@@ -127,6 +127,9 @@
         <span class="date">2026-05-16</span>
     </div>
 </div>
+<div style="max-width: 100%;">
+            <img src="prtsc/ccpc.png" style="width:100%; height:auto; border-radius:8px;">
+        </div>
 
 <h3>📖 题目大意</h3>
 <p>
@@ -216,8 +219,7 @@ int main() {
     int n, m;
     cin >> n >> m;
 
-    // a[i][j] 表示第 i 支队伍是否通过第 j 题
-    vector<vector<int>> a(m, vector<int>(n));
+    vector<vector<int>> a(m, vector<int>(n)); // a[i][j] 表示第 i 支队伍是否通过第 j 题
     for (int i = 0; i < m; i++) {
         string s;
         cin >> s;
@@ -226,34 +228,27 @@ int main() {
         }
     }
 
-    // 三个指定排名
-    int rkg, rks, rkb;
+    int rkg, rks, rkb;// 三个指定排名
     cin >> rkg >> rks >> rkb;
 
-    // 对应排名要求的通过题数
-    int pg, ps, pb;
+    int pg, ps, pb;// 对应排名要求的通过题数
     cin >> pg >> ps >> pb;
 
-    // 枚举所有题目子集
-    for (int mask = 0; mask < (1 << n); mask++) {
+    for (int mask = 0; mask < (1 << n); mask++) {//枚举所有题目子集
 
-        // 统计当前方案选了多少题
-        int cntProblem = 0;
+        int cntProblem = 0;//统计当前方案选了多少题
         for (int j = 0; j < n; j++)
             if (mask & (1 << j)) cntProblem++;
 
-        // 不满足题目数量要求，直接跳过
-        if (cntProblem < 10 || cntProblem > 13) continue;
+        if (cntProblem < 10 || cntProblem > 13) continue; // 不满足题目数量要求，直接跳过
 
-        // 统计每支队伍的通过题数
-        vector<int> solved(m, 0);
+        vector<int> solved(m, 0);// 统计每支队伍的通过题数
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
                 if ((mask & (1 << j)) && a[i][j])
                     solved[i]++;
 
-        // 按通过题数排序（降序）
-        sort(solved.begin(), solved.end(), greater<int>());
+        sort(solved.begin(), solved.end(), greater<int>());    // 按通过题数排序（降序）
 
         // 检查指定排名是否满足要求
         if (solved[rkg - 1] == pg &&
